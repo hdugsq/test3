@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>title</title>
+<style>
+.cu{
+    background: red;
+}
+</style>
+<script src="C:\Users\qq\Desktop\firstVue\node_modules\vue\dist\vue.js"></script>
+</head>
+<body>
+<div id="app"> 
+  <cpn :clis='lis' :ct='message' @a-click='newc'></cpn>
+  <label><input id= "tao"type="radio" name="q">nan</label>
+  <input type="radio" name="q">nan
+    <button @click="bian">+</button>
+    <div>
+        <h1 v-if="real">{{message}}</h1>
+    </div>
+    <ul>
+      <li v-for="(key,item,index) in info" :class="{cu: num===index}" @click="cl(index)">{{item}}:{{key}}</li>
+    </ul>
+  <h2>{{num}}</h2>
+</div>
+<template id='cpn'>
+  <div>
+    <button @click='mcli'>+</button>
+    <ul>
+      <li v-for="item in clis">{{item}}</li>
+      <li>{{ct}}</li>
+    </ul>
+  </div>
+</template>
+<script>
+const cpn={
+  template:'#cpn',
+  data(){
+    return{
+      count:1
+    }
+  },
+  methods:{
+    mcli(){
+      this.count++
+      this.$emit('a-click',this.count)
+    }
+  },
+  props:{
+    clis:{
+      type:Array,
+      default(){
+        return []
+      }
+    },
+    ct:{
+      type:String,
+      default:"taoge"
+    }
+  }
+}
+let a=[1,2,3,1,5]
+let b=a.filter(n=>n!=1).map(n=>n*2).reduce((pre,n)=>pre+n)
+console.log(b);
+const app=new Vue({
+  el: '#app',
+  data: {
+    num:0,
+    lis:['a','b','c'],
+    message: '涛哥',
+    info:{
+      name:'taoge',
+      age:20,
+      sex:'女'
+    },
+    real:true
+  },
+  methods: {
+    cl(index){
+      this.num=index
+    },
+    bian(){
+        this.message='涛哥2'
+        this.real=!this.real
+    },
+    newc(count){
+      this.info.age=count
+    }
+  },
+  components:{
+    cpn
+  }
+})
+</script>
+</body>
+</html>
